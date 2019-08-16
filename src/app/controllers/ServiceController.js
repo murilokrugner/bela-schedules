@@ -2,6 +2,14 @@ import * as Yup from 'yup';
 import Service from '../models/Service';
 
 class ServiceController {
+  async index(req, res) {
+    const services = await Service.findAll({
+      attributes: ['description', 'value'],
+    });
+
+    return res.json(services);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       description: Yup.string().required(),
